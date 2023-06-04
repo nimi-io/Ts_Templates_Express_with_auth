@@ -16,7 +16,7 @@ export class authRoutes {
 
     private initializeRoutes(): void {
     this.router.get("/hello", this.AuthController.helloHandler);
-    this.router.get("/login", this.AuthController.login);
+    this.router.post("/login", this.AuthController.login);
     this.router.post("/register", this.AuthController.register);
     this.router.post("/forgetPassword", this.AuthController.forgetPassword);
   }

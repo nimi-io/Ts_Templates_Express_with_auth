@@ -47,7 +47,7 @@ class App {
       }
     );
   }
-  
+
   public start(port: number): void {
     this.app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
@@ -55,5 +55,5 @@ class App {
   }
 }
 
-const app = new App();
+export const app = new App();
 app.start(3000);
