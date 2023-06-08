@@ -1,6 +1,11 @@
 import { Schema, model, Document, HydratedDocument } from "mongoose";
 
-interface User extends Document {
+export interface registerUser extends Document {
+  name: string;
+  email: string;
+  password: string;
+}
+export interface User extends Document {
   name: string;
   email: string;
   password: string;

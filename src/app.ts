@@ -5,6 +5,10 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 const logger = morgan("combined"); // Specify the desired log format ('combined', 'common', 'dev', 'short', 'tiny')
 import fs from "fs";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+dotenv.config();
+const port: number = parseInt((process.env.PORT || "3000").toString());
 
 const accessLogStream = fs.createWriteStream("./logs/access.log", {
   flags: "a",
@@ -15,11 +19,14 @@ class App {
   private app: Express;
 
   constructor() {
+    // });
+
     this.app = express();
     this.setupMiddlewares();
     this.setupRoutes();
     this.setupErrorHandling();
     this.notFoundErrorHanling();
+    this.databaseConnect().then(() => this.start(port));
   }
 
   private setupMiddlewares(): void {
@@ -39,6 +46,23 @@ class App {
     this.app.use(notFoundErrorHandler);
   }
 
+  private async databaseConnect() {
+    try {
+      await mongoose
+        .connect(`${process.env.DB_HOST}`, {})
+        .then(() => {
+          console.log("Connected to MongoDB");
+          // Start your application or perform database operations
+        })
+        .catch((error) => {
+          console.error("Error connecting to MongoDB:", error);
+        });
+
+      // Create a Mongoose connection
+    } catch (error) {
+      console.log(error);
+    }
+  }
   private setupErrorHandling(): void {
     this.app.use(
       (err: any, req: Request, res: Response, next: NextFunction) => {
@@ -56,4 +80,6 @@ class App {
 }
 
 export const app = new App();
-app.start(3000);
+// app.databaseConnect();
+
+// app.start(3000);

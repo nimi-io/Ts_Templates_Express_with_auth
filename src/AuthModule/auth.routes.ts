@@ -1,4 +1,5 @@
 import { authController } from "./auth.controller";
+import { validateCreateUser } from "./dto/createUserDto";
 import UserModel from "./model/User.Model";
 import { Router } from "express";
 
@@ -14,10 +15,14 @@ export class authRoutes {
     this.initializeRoutes();
   }
 
-    private initializeRoutes(): void {
+  private initializeRoutes(): void {
     this.router.get("/hello", this.AuthController.helloHandler);
     this.router.post("/login", this.AuthController.login);
-    this.router.post("/register", this.AuthController.register);
+    this.router.post(
+      "/register",
+      validateCreateUser,
+      this.AuthController.register
+    );
     this.router.post("/forgetPassword", this.AuthController.forgetPassword);
   }
 
