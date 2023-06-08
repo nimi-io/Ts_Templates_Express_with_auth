@@ -1,5 +1,5 @@
 import { authController } from "./auth.controller";
-import { validateCreateUser } from "./dto/createUserDto";
+import { validateCreateUser, validateLoginUser } from "./dto/createUserDto";
 import UserModel from "./model/User.Model";
 import { Router } from "express";
 
@@ -17,7 +17,7 @@ export class authRoutes {
 
   private initializeRoutes(): void {
     this.router.get("/hello", this.AuthController.helloHandler);
-    this.router.post("/login", this.AuthController.login);
+    this.router.post("/login", validateLoginUser, this.AuthController.login);
     this.router.post(
       "/register",
       validateCreateUser,

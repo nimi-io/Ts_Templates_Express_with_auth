@@ -20,3 +20,22 @@ export const validateCreateUser = (
 
   next();
 };
+
+const loginUserValidator = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+});
+
+export const validateLoginUser = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { error } = loginUserValidator.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+
+  next();
+};
