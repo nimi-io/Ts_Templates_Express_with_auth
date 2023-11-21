@@ -1,12 +1,16 @@
 import { Schema, model, Document, HydratedDocument } from "mongoose";
 
 export interface registerUser extends Document {
-  name: string;
+  firstname: string;
+  lastname: string;
+  number: number;
   email: string;
   password: string;
 }
 export interface User extends Document {
-  name: string;
+  firstname: string;
+  lastname: string;
+  number: number;
   email: string;
   password: string;
   createdAt: Date;
@@ -14,8 +18,16 @@ export interface User extends Document {
 }
 
 const userSchema = new Schema<User>({
-  name: {
+  firstname: {
     type: String,
+    required: true,
+  },
+  lastname: {
+    type: String,
+    required: true,
+  },
+  number: {
+    type: Number,
     required: true,
   },
   email: {

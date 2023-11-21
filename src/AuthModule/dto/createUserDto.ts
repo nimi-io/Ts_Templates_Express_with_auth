@@ -2,7 +2,9 @@ import Joi from "joi";
 import { Request, Response, NextFunction } from "express";
 
 const createUserSchema = Joi.object({
-  name: Joi.string().required(),
+  firstname: Joi.string().required(),
+  lastname: Joi.string().required(),
+  number: Joi.number().required(),
   email: Joi.string().email().required(),
   password: Joi.string().required(),
 });

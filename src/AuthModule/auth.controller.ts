@@ -45,11 +45,10 @@ export class authController extends AbstractRepository<any> {
     // res.send("register not implemented");
 
     // Retrieve user data from request body
-    const { name, email, password } = req.body;
+    const { firstname, lastname, number, email, password } = req.body;
 
     // Check if the username already exists
     const existingUser = (await UserModel.findOne({
-      name,
       email,
     }).exec()) as any;
 
@@ -61,7 +60,9 @@ export class authController extends AbstractRepository<any> {
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser: any = {
-        name,
+        firstname,
+        lastname,
+        number,
         email,
         password: hashedPassword,
       };

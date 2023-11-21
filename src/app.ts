@@ -10,6 +10,17 @@ import mongoose from "mongoose";
 dotenv.config();
 const port: number = parseInt((process.env.PORT || "3000").toString());
 
+
+const logsFolderPath = "./logs";
+
+// Check if the "logs" folder exists
+if (!fs.existsSync(logsFolderPath)) {
+  // Create the "logs" folder
+  fs.mkdirSync(logsFolderPath);
+  console.log("Logs folder created successfully.");
+} else {
+  console.log("Logs folder already exists.");
+}
 const accessLogStream = fs.createWriteStream("./logs/access.log", {
   flags: "a",
 });
